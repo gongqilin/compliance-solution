@@ -1,0 +1,13 @@
+
+
+<div *ngIf="transaction">
+      <h2>Detail is here: {{transaction.description}} </h2>
+      <div><label>id: </label>{{transaction.id}}</div>
+      <div>
+        <label>description: </label>
+        <input [(ngModel)]="transaction.description" placeholder="name"/>
+      </div>
+      <li *ngFor="let entrytransaction of entryTransactions">
+        <span class="badge">{{entrytransaction.id}}:</span> {{entrytransaction.type}}, {{entrytransaction.amount}}
+  	  </li>
+</div>
