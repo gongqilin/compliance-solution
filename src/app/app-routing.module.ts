@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'detail/:id', component: TransactionDetailComponent },
+  { path: 'entryTransactionDetail/:id', component: EntryTransactionsComponent },
   { path: 'transactions',     component: TransactionsComponent }
 ];
 

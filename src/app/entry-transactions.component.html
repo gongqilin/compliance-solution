@@ -1,0 +1,19 @@
+<div *ngIf="entryTransaction">
+      <h2>Entry transaction detail is here: {{entryTransaction.id}} </h2>
+      <div><label>Type: </label>{{entryTransaction.type}}</div>
+      <div>
+        <label>Amount: </label>
+        <input [(ngModel)]="entryTransaction.amount" placeholder="name"/>
+      </div>
+      <div *ngIf="entry">
+      <h2>Entry detail is here: {{entryTransaction.tEntryId}} </h2>
+      <div><label>0 Amount: </label>{{entry.amount}}</div>
+      <div><label>1 Tax Free: </label>{{entry.taxFree}}</div>
+      <div><label>2 Taxed: </label>{{entry.taxed}}</div>
+      <div><label>3 Created By: </label>{{entry.createBy}}</div>
+</div>
+</div>
+
+<div>
+	<button (click)="goBack()">Back</button>
+</div>

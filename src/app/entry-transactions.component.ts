@@ -5,32 +5,40 @@ import { Location }                 from '@angular/common';
 
 import { EntryTransaction } from './entry-transaction';
 import { EntryTransactionService } from './entry-transaction.service';
+import { EntryService } from './entry.service';
+import { Entry } from './entry';
+import { EntrySystemJournal } from './entry-system-journal';
 
 @Component({
   selector: 'entry-transactions',
   templateUrl: './entry-transactions.component.html'
 })
 export class EntryTransactionsComponent implements OnInit {
-  entryTransactions: EntryTransaction[];
-  selectedEntryTransaction: EntryTransaction;
+  entryTransaction: EntryTransaction;
+  entry: Entry;
+  entrySystemJournal: EntrySystemJournal;
 
   constructor(
   	private router: Router,
     private route: ActivatedRoute,
     private location: Location,
+    private entryService: EntryService,
     private entryTransactionService: EntryTransactionService) { }
 
   ngOnInit(): void {
+
     this.route.paramMap
-      .switchMap((params: ParamMap) => this.entryTransactionService.getEntryTransactions(String(+params.get('id'))))
-      .subscribe(entryTransactions => this.entryTransactions = entryTransactions);
+      .switchMap((params: ParamMap) => this.entryTransactionService.getEntryTransaction(+params.get('id')))
+      .subscribe(entryTransaction => {
+      	this.entryTransaction = entryTransaction;
+      	this.entryService.getEntry(this.entryTransaction.tEntryId, this.entryTransaction.type).then(
+      		entry => this.entry = entry
+      	);
+      });
   }
 
-  onSelect(entryTransaction: EntryTransaction): void {
-    this.selectedEntryTransaction = entryTransaction;
+  goBack(): void {
+    this.location.back();
   }
 
-  gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedEntryTransaction.id]);
-  }
 }

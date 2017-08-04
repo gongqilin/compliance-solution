@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }        from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location }                 from '@angular/common';
 
 import { Transaction } from './transaction'
@@ -12,7 +12,7 @@ import { EntryTransactionService } from './entry-transaction.service';
 @Component({
   selector: 'transaction-detail',
   templateUrl: './transaction-detail.component.html',
-  styleUrls: [ './transaction-detail.component.css' ]
+  styleUrls: [ './transaction-detail.component.css', './transactions.component.css' ]
 })
 export class TransactionDetailComponent implements OnInit {
   transaction: Transaction;
@@ -20,6 +20,7 @@ export class TransactionDetailComponent implements OnInit {
   selectedEntryTransaction: EntryTransaction;
 
   constructor(
+  	private router: Router,
     private transactionService: TransactionService,
     private entryTransactionService: EntryTransactionService,
     private route: ActivatedRoute,
@@ -41,5 +42,12 @@ export class TransactionDetailComponent implements OnInit {
     this.location.back();
   }
   
+  onSelect(entryTransaction: EntryTransaction): void {
+    this.selectedEntryTransaction = entryTransaction;
+  }
   
+  gotoDetail(): void {
+
+    this.router.navigate(['/entryTransactionDetail', this.selectedEntryTransaction.id]);
+  }
 }

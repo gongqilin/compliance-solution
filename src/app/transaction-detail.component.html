@@ -7,7 +7,23 @@
         <label>description: </label>
         <input [(ngModel)]="transaction.description" placeholder="name"/>
       </div>
-      <li *ngFor="let entrytransaction of entryTransactions">
-        <span class="badge">{{entrytransaction.id}}:</span> {{entrytransaction.type}}, {{entrytransaction.amount}}
-  	  </li>
+      <ul class="transactions">
+	      <li *ngFor="let entrytransaction of entryTransactions"
+	      [class.selected]="entrytransaction === selectedEntryTransaction"
+	    (click)="onSelect(entrytransaction)">
+	        <span class="badge">{{entrytransaction.id}}:</span> {{entrytransaction.type}}, {{entrytransaction.amount}}
+	  	  </li>
+  	  </ul>
+</div>
+
+<div *ngIf="selectedEntryTransaction">
+  <h2>
+    {{selectedEntryTransaction.id}} is current entry transaction
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+  
+</div>
+
+<div>
+	<button (click)="goBack()">Back</button>
 </div>

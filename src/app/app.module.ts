@@ -10,6 +10,7 @@ import { TransactionsComponent }      from './transactions.component';
 import { EntryTransactionsComponent }      from './entry-transactions.component';
 import { TransactionService }          from './transaction.service';
 import { EntryTransactionService }          from './entry-transaction.service';
+import { EntryService }          from './entry.service';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -27,7 +28,7 @@ import { AppRoutingModule }     from './app-routing.module';
     AppRoutingModule,
     HttpModule
   ],
-  providers: [TransactionService, EntryTransactionService],
+  providers: [TransactionService, EntryTransactionService, EntryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

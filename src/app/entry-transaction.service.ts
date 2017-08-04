@@ -34,7 +34,17 @@ export class EntryTransactionService {
     return headers;
   }
    
-   
+   getEntryTransaction(id: number): Promise<EntryTransaction> {
+    let entryTransaction$ = this.http
+      .get(`${this.baseUrl}/getEntryTransaction/${id}`, {headers: this.getHeaders()})
+      .toPromise()
+      .then(response => response.json() as EntryTransaction)
+      .catch(handleError);
+      
+      console.log(entryTransaction$);
+
+      return entryTransaction$;
+  }
 }
 
 function handleError (error: any) {
