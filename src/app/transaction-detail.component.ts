@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit }        from '@angular/core';
+import { Component, OnInit, Compiler }        from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location }                 from '@angular/common';
 
@@ -24,10 +24,12 @@ export class TransactionDetailComponent implements OnInit {
     private transactionService: TransactionService,
     private entryTransactionService: EntryTransactionService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location, 
+    private _compiler: Compiler
   ) {}
 
   ngOnInit(): void {
+    this._compiler.clearCache();
     this.route.paramMap
       .switchMap((params: ParamMap) => this.transactionService.getTransaction(+params.get('id')))
       .subscribe(transaction => {

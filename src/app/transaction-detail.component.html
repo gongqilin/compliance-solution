@@ -10,7 +10,7 @@
       <ul class="transactions">
 	      <li *ngFor="let entrytransaction of entryTransactions"
 	      [class.selected]="entrytransaction === selectedEntryTransaction"
-	    (click)="onSelect(entrytransaction)">
+	      (click)="onSelect(entrytransaction)">
 	        <span class="badge">{{entrytransaction.id}}:</span> {{entrytransaction.type}}, {{entrytransaction.amount}}
 	  	  </li>
   	  </ul>

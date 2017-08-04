@@ -1,11 +1,12 @@
-<h2>My Transactions</h2>
+<h2>SF360 Transactions</h2>
 <ul class="transactions">
-  <li *ngFor="let transaction of transactions"
+  <li *ngFor="let transaction of transactions | paginate: { itemsPerPage: 10, currentPage: p }"
     [class.selected]="transaction === selectedTransaction"
     (click)="onSelect(transaction)">
     <span class="badge">{{transaction.id}}</span> {{transaction.description}}
   </li>
 </ul>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
 <div *ngIf="selectedTransaction">
   <h2>
     {{selectedTransaction.description | uppercase}} is my transaction

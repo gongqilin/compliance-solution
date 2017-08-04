@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit }        from '@angular/core';
+import { Component, OnInit, Compiler }        from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location }                 from '@angular/common';
 
@@ -7,7 +7,6 @@ import { EntryTransaction } from './entry-transaction';
 import { EntryTransactionService } from './entry-transaction.service';
 import { EntryService } from './entry.service';
 import { Entry } from './entry';
-import { EntrySystemJournal } from './entry-system-journal';
 
 @Component({
   selector: 'entry-transactions',
@@ -16,17 +15,17 @@ import { EntrySystemJournal } from './entry-system-journal';
 export class EntryTransactionsComponent implements OnInit {
   entryTransaction: EntryTransaction;
   entry: Entry;
-  entrySystemJournal: EntrySystemJournal;
 
   constructor(
   	private router: Router,
     private route: ActivatedRoute,
     private location: Location,
     private entryService: EntryService,
-    private entryTransactionService: EntryTransactionService) { }
+    private entryTransactionService: EntryTransactionService, 
+    private _compiler: Compiler) { }
 
   ngOnInit(): void {
-
+	this._compiler.clearCache();
     this.route.paramMap
       .switchMap((params: ParamMap) => this.entryTransactionService.getEntryTransaction(+params.get('id')))
       .subscribe(entryTransaction => {

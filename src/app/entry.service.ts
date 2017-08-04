@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
 import { Entry } from './entry';
-import { EntrySystemJournal } from './entry-system-journal';
 import { EntryType } from './entry-type';
 
 @Injectable()
@@ -27,45 +26,12 @@ export class EntryService {
     let entry$ = this.http
       .get(`${this.baseUrl}/getEntry/${entryId}/${type}`, {headers: this.getHeaders()})
       .toPromise()
-      .then(response => this.getSpecificEntry(type, response))
+      .then(response => response.json() as Entry)
       .catch(handleError);
 
       return entry$;
   }
   
-  private getSpecificEntry(type: string, response: Response){
-    let value = EntryType[type];
-    
-  	switch(value){
-  		case EntryType.BasicBankEntry:
-                
-                break;
-        case EntryType.Contribution:
-                
-                break;
-        case EntryType.DistributionInterest:
-                
-                break;
-        case EntryType.Dividend:
-                
-                break;
-        case EntryType.General:
-                
-                break;
-        case EntryType.Investment:
-                
-                break;
-        case EntryType.MemberBalance:
-            
-            	break;
-                
-         case EntryType.System:
-               return response.json() as EntrySystemJournal;
-               
-		 default:
-			    break; 
-  	}
-  }
 }
 
 function handleError (error: any) {
